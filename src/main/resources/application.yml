@@ -12,3 +12,5 @@ spring:
       enabled: always
   application:
     name: catalog-service
+polar:
+  greeting: Welcome to the Book Catalog!
