@@ -1,5 +1,7 @@
 package org.ucup.catalogservice.web;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +28,7 @@ public class BookController {
     }
 
     @GetMapping("")
-    public Iterable<Book> get() {
+    public List<Book> get() {
         return bookService.viewBookList();
     }
 

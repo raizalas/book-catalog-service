@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import org.ucup.catalogservice.domain.Book;
 import org.ucup.catalogservice.domain.BookRepository;
 
+import java.util.List;
+
 @Component
 @Profile("testdata")
 public class BookDataLoader {
@@ -19,12 +21,12 @@ public class BookDataLoader {
 
     @EventListener(ApplicationReadyEvent.class)
     public void loadBookTestData() {
-        Book book1 = new Book("1234567891", "Northern Lights", "Lyra Silverstar",
+        bookRepository.deleteAll();
+        Book book1 = Book.of("1234567891", "Northern Lights", "Lyra Silverstar",
                 9.90);
-        Book book2 = new Book("1234567892", "Polar Journey",
+        Book book2 = Book.of("1234567892", "Polar Journey",
                 "Iorek Polarson", 12.90);
-        bookRepository.save(book1);
-        bookRepository.save(book2);
+        bookRepository.saveAll(List.of(book1, book2));
     }
 
 }

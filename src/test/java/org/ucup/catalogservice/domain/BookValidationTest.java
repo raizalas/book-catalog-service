@@ -25,7 +25,7 @@ public class BookValidationTest {
     @Test
     @DisplayName("All fields are correct for Book entity.")
     void whenAllFieldsAreCorrect() {
-        Book book = new Book("1234567890123", "Title", "Author", 10d);
+        Book book = Book.of("1234567890123", "Title", "Author", 10d);
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         assertThat(violations).isEmpty();
     }
@@ -33,7 +33,7 @@ public class BookValidationTest {
     @Test
     @DisplayName("ISBN Incorrectly Formatted.")
     void whenIsbnIncorrectlyFormatted() {
-        Book book = new Book("12345678", "title", "author", 10d);
+        Book book = Book.of("12345678", "title", "author", 10d);
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         assertThat(violations.iterator().next().getMessage())
                 .isEqualTo("Not a valid ISBN-10 or ISBN-13 format");
@@ -42,7 +42,7 @@ public class BookValidationTest {
     @Test
     @DisplayName("Title is empty.")
     void whenTitleIsBlank() {
-        Book book = new Book("1234567890", "", "author", 10d);
+        Book book = Book.of("1234567890", "", "author", 10d);
         Set<ConstraintViolation<Book>> violations = validator.validate(book);
         assertThat(violations)
                 .extracting(ConstraintViolation::getMessage)

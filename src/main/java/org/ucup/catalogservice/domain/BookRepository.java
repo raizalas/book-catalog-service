@@ -1,13 +1,21 @@
 package org.ucup.catalogservice.domain;
 
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jdbc.repository.query.Modifying;
+import org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
-public interface BookRepository {
-    List<Book> findAll();
+
+public interface BookRepository extends ListCrudRepository<Book, Long>{
+
     Optional<Book> findByIsbn(String isbn);
-    boolean existsByIsbn(String Isbn);
-    Book save(Book book);
-    void deleteByIsbn(String Isbn);
+
+    boolean existsByIsbn(String isbn);
+
+    @Modifying
+    @Transactional
+    @Query("delete from Book where isbn= :isbn")
+    void deleteByIsbn(String isbn);
 }
