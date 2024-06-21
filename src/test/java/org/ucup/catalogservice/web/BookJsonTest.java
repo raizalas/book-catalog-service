@@ -20,7 +20,7 @@ public class BookJsonTest {
     @Test
     void testSerialize() throws Exception{
         Instant now = Instant.now();
-        Book book = new Book(123L,"1231231231", "Title", "Author", 9.90, now, now, 24);
+        Book book = new Book(123L,"1231231231", "Title", "Author", 9.90, null ,now, now, 24);
         JsonContent<Book> jsonContent = json.write(book);
         assertThat(jsonContent).extractingJsonPathNumberValue("@.id")
             .isEqualTo(book.id().intValue());
@@ -57,6 +57,6 @@ public class BookJsonTest {
                 """;
         assertThat(json.parse(content))
             .usingRecursiveComparison()
-            .isEqualTo(new Book(123L,"1234567890", "Title", "Author", 9.90, instant, instant, 21));
+            .isEqualTo(new Book(123L,"1234567890", "Title", "Author", 9.90,null, instant, instant, 21));
     }
 }
