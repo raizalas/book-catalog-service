@@ -6,6 +6,7 @@ plugins {
 
 group = 'org.ucup'
 version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '21'
 
 java {
 	toolchain {
@@ -58,6 +59,19 @@ tasks.named('test') {
 	testLogging {
         events "passed", "skipped", "failed"
     }
+}
+
+bootBuildImage {
+  imageName = "catalog-service"
+  environment = ["BP_JVM_VERSION" : "21.*"]
+
+  docker {
+	publishRegistry {
+		username = project.findProperty("registryUsername")
+		password = project.findProperty("registryToken")
+		url = project.findProperty("registryUrl")
+	}
+  }
 }
 
 bootRun {
